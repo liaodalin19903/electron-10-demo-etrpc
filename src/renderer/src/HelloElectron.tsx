@@ -1,6 +1,10 @@
-import { trpcReact } from './trpcClient'
+import { createTRPCReact } from '@trpc/react-query';
+import type { AppRouter } from '../../main/api'
 
 function HelloElectron(props: unknown): JSX.Element {
+
+  const trpcReact = createTRPCReact<AppRouter>()
+
   let data: {
     text: string | undefined
   } = {
@@ -14,8 +18,10 @@ function HelloElectron(props: unknown): JSX.Element {
   });
 
   const clickHandle = () => {
+
     console.log('clicked')
-    const res = trpcReact.greeting.useQuery({ name: 'Electron' });
+    const res = trpcReact.greeting.useQuery({ name: 'Electron' });  // when execute this line it report error
+
     if(res && res.data) { data = res.data }
 
     console.log('props: ', props)

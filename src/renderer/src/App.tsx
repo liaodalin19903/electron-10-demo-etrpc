@@ -6,12 +6,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import HelloElectron from './HelloElectron'
-
-
-import { trpcReact } from './trpcClient'
+import { createTRPCReact } from '@trpc/react-query';
+import { AppRouter } from '@main/api';
 
 
 function App(): JSX.Element {
+
+  const trpcReact = createTRPCReact<AppRouter>()
 
   const [queryClient] = useState(() => new QueryClient())
   const [trpcClient] = useState(() =>
